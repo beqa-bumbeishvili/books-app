@@ -7,8 +7,13 @@ class Author < ApplicationRecord
 
   after_create :set_author_number
 
+  def name_and_lastname
+    "#{self.name} #{self.last_name}"
+  end
+
+
   def set_author_number
-      Author.where(id: self.id).update(number: "#_#{self.id}")
+    Author.where(id: self.id).update(number: "#_#{self.id}")
   end
 
 end

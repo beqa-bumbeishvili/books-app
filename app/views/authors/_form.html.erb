@@ -21,16 +21,23 @@
     </div>
 
     <div class="field">
+      <%= f.label :birth_date %>
+      <%= f.date_select :birth_date %>
+    </div>
+
+
+    <div class="field">
       <%= f.label :address %>
       <%= f.collection_select :address_id, Address.all, :id, :name %>
-    </div>
-    books:
+    </div><br>
+create three books wth author:
     <ul>
       <%= f.fields_for :books do |b| %>
           <li>
-            <%= b.text_field :number%>
-            <%= b.text_field :title %>
+            <%= b.text_field :title, placeholder: 'book title'  %>
+            <%= b.text_field :number, placeholder: 'book number' %>
           </li>
+          <br>
       <% end %>
     </ul>
 
