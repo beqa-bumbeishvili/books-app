@@ -1,0 +1,14 @@
+class Author < ApplicationRecord
+  belongs_to :address
+
+  has_many :books, dependent: :destroy
+
+  accepts_nested_attributes_for :books
+
+  after_create :set_author_number
+
+  def set_author_number
+      Author.where(id: self.id).update(number: "#_#{self.id}")
+  end
+
+end
