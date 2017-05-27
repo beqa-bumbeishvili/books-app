@@ -1,0 +1,48 @@
+<%= form_for(author) do |f| %>
+  <% if author.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(author.errors.count, "error") %> prohibited this author from being saved:</h2>
+
+      <ul>
+      <% author.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :birth_date %>
+      <%= f.date_select :birth_date %>
+    </div>
+
+
+    <div class="field">
+      <%= f.label :address %>
+      <%= f.collection_select :address_id, Address.all, :id, :name %>
+    </div><br>
+create three books wth author:
+    <ul>
+      <%= f.fields_for :books do |b| %>
+          <li>
+            <%= b.text_field :title, placeholder: 'book title'  %>
+            <%= b.text_field :number, placeholder: 'book number' %>
+          </li>
+          <br>
+      <% end %>
+    </ul>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
+<% end %>
