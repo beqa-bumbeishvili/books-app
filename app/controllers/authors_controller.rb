@@ -51,6 +51,17 @@ class AuthorsController < ApplicationController
     end
   end
 
+  def two_books_author
+    @author = Author.new
+  end
+
+  def create_author_two_books
+    @author = Author.new(author_params)
+    @author.books.build(title: 'gocha')
+    @author.books.build(title: 'xvicha')
+    @author.save
+  end
+
   private
 
     def set_author

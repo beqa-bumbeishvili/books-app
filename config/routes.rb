@@ -3,5 +3,9 @@ Rails.application.routes.draw do
   resources :authors
   resources :addresses
 
+  get 'two_books_author' => 'authors#two_books_author'
+  post 'create_two_books_author' => 'authors#create_author_two_books'
+
+
   root 'authors#index'
 end
