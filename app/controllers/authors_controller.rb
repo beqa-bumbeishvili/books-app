@@ -1,7 +1,6 @@
 class AuthorsController < ApplicationController
   before_action :set_author, only: [:show, :edit, :update, :destroy]
 
-
   def index
     @authors = Author.all
   end
@@ -9,20 +8,17 @@ class AuthorsController < ApplicationController
   def show
   end
 
-
   def new
     @author = Author.new
     3.times { @author.books.build }
   end
 
-
   def edit
     @books = @author.books
   end
 
-
   def create
-    @author = Author.new(author_with_book_params)
+    @author = Author.new(author_params)
 
     respond_to do |format|
       if @author.save
@@ -34,7 +30,6 @@ class AuthorsController < ApplicationController
       end
     end
   end
-
 
   def update
     respond_to do |format|
@@ -48,7 +43,6 @@ class AuthorsController < ApplicationController
     end
   end
 
-
   def destroy
     @author.destroy
     respond_to do |format|
@@ -57,19 +51,26 @@ class AuthorsController < ApplicationController
     end
   end
 
+  def two_books_author
+    @author = Author.new
+  end
+
+  def create_author_two_books
+    @author = Author.new(author_params)
+    @author.books.build(title: 'gocha')
+    @author.books.build(title: 'xvicha')
+    @author.save
+  end
+
   private
 
     def set_author
       @author = Author.find(params[:id])
     end
 
-
   def author_params
-    params.require(:author).permit(:name, :last_name, :birth_date, :address_id)
-  end
-
-  def author_with_book_params
     params.require(:author).permit(:name, :last_name, :birth_date, :address_id,
                                    books_attributes: [:number, :title])
   end
+
 end
