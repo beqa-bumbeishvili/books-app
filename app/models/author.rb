@@ -1,9 +1,9 @@
 class Author < ApplicationRecord
-  belongs_to :address
+  has_one :address
 
   has_many :books, inverse_of: :author, dependent: :destroy
 
-  accepts_nested_attributes_for :books
+  accepts_nested_attributes_for :books, reject_if: proc { |book| book['title'].blank?}
 
   after_create :set_author_number
 

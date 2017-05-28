@@ -1,0 +1,17 @@
+<%= render 'book_filter_table', title: 'All author with books', data: @all_authors_with_books %>
+
+<%= render 'book_filter_table', title: 'Filter where authors zip_code is equal to 1100', data: @zip_code_filter if @zip_code_filter.length > 0 %>
+
+<%= render 'book_filter_table', title: 'Filter where authors id is more than 20', data: @author_id_filter if @author_id_filter.length > 0 %>
+
+<%= render 'book_filter_table', title: 'Filter where author has addresses', data: @author_address_filter if @author_address_filter.length > 0 %>
+
+<%= render 'book_filter_table', title: 'Filter where authors zip_code is not null', data: @zip_code_exist if @zip_code_exist.length > 0 %>
+
+<%= render 'book_filter_table', title: 'Filter where published date is more than 2012', data: @published_at_filter if @published_at_filter.length > 0 %>
+
+
+
+
+
+

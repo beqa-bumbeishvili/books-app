@@ -16,12 +16,17 @@
     <%= f.text_field :name %>
   </div>
 
-  <div class="field">
-    <%= f.label :zip_code %>
-    <%= f.text_field :zip_code %>
-  </div>
+    <div class="field">
+      <%= f.label :zip_code %>
+      <%= f.text_field :zip_code %>
+    </div>
 
-  <div class="actions">
+    <div class="field">
+      <%= f.label :author %>
+      <%= f.collection_select :author_id, Author.all, :id, :name_and_lastname %>
+    </div>
+
+    <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
