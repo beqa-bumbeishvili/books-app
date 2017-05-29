@@ -1,5 +1,6 @@
 class Book < ApplicationRecord
-  belongs_to :author #optional: true
+  belongs_to :author
+  has_many :feedbacks
 
   #before_create :set_book_number
 

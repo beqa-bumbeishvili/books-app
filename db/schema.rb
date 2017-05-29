@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528101816) do
+ActiveRecord::Schema.define(version: 20170529071754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20170528101816) do
     t.index ["author_id"], name: "index_books_on_author_id", using: :btree
   end
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.string  "comment"
+    t.integer "score"
+    t.string  "feedbacker"
+    t.integer "book_id"
+  end
+
   add_foreign_key "addresses", "authors"
   add_foreign_key "books", "authors"
+  add_foreign_key "feedbacks", "books"
 end

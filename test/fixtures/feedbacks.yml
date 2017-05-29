@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  comment: MyString
+  score: 1
+  feedbacker: MyString
+
+two:
+  comment: MyString
+  score: 1
+  feedbacker: MyString

@@ -22,8 +22,46 @@
 
 <p>
   <strong>Author:</strong>
-  <%= @book.author %>
+  <%= @book.author.name_and_lastname %>
 </p>
+
+<h2> New Feedback </h2>
+
+<%= form_for(@feedback) do |f| %>
+    <% if @feedback.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@feedback.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+          <ul>
+            <% @feedback.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :comment %>
+      <%= f.text_field :comment %>
+    </div>
+
+    <div class="field">
+      <%= f.label :score %>
+      <%= f.number_field :score %>
+    </div>
+
+    <div class="field">
+      <%= f.label :feedbacker %>
+      <%= f.text_field :feedbacker %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+
+
+
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>

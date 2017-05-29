@@ -62,44 +62,41 @@ class AuthorsController < ApplicationController
     @author.save
   end
 
+  def custom_columns
+    'books.number AS book_number, books.title AS book_title, books.published_at AS book_published_at,
+                                            authors.name AS author_name, authors.last_name AS author_last_name'
+  end
 
 
   def book_filter_view
     @all_authors_with_books = Author.joins('LEFT JOIN books on books.author_id = authors.id').
-                                    select('books.number AS book_number, books.title AS book_title, books.published_at AS book_published_at,
-                                            authors.name AS author_name, authors.last_name AS author_last_name')
+                                    select(custom_columns)
 
 
     @zip_code_filter = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
                               joins('LEFT JOIN addresses ON addresses.author_id = authors.id').
                               where('addresses.zip_code LIKE \'1100\'').
-                              select('books.number AS book_number, books.title AS book_title, books.published_at AS book_published_at,
-                                      authors.name AS author_name, authors.last_name AS author_last_name')
+                              select(custom_columns)
 
 
     @author_id_filter = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
                                where('authors.id > 20').
-                               select('books.number AS book_number, books.title AS book_title, books.published_at AS book_published_at,
-                                       authors.name AS author_name, authors.last_name AS author_last_name')
+                               select(custom_columns)
 
 
     @author_address_filter = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
                                     joins('INNER JOIN addresses ON addresses.author_id = authors.id').
                                     where('authors.id > 20').
-                                    select('books.number AS book_number, books.title AS book_title, books.published_at AS book_published_at,
-                                            authors.name AS author_name, authors.last_name AS author_last_name')
-
+                                    select(custom_columns)
 
     @zip_code_exist = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
                              joins('LEFT JOIN addresses ON addresses.author_id = authors.id').
                              where('addresses.zip_code IS NOT NULL').
-                             select('books.number AS book_number, books.title AS book_title, books.published_at AS book_published_at,
-                                      authors.name AS author_name, authors.last_name AS author_last_name')
+                             select(custom_columns)
 
     @published_at_filter = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
-                                  where('books.published_at > ?', DateTime.now).
-                                  select('books.number AS book_number, books.title AS book_title, books.published_at AS book_published_at,
-                                       authors.name AS author_name, authors.last_name AS author_last_name')
+                                  where('books.published_at > ?', '2012-01-01').
+                                  select(custom_columns)
 
 
 
