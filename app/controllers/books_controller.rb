@@ -6,7 +6,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    @feedback = Feedback.new
+    @feedback = @book.feedbacks.build
   end
 
   def new

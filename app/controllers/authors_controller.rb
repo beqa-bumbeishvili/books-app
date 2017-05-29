@@ -98,8 +98,13 @@ class AuthorsController < ApplicationController
                                   where('books.published_at > ?', '2012-01-01').
                                   select(custom_columns)
 
+    sql = <<~SQL
+        SELECT title AS book_title , number AS book_number, published_at AS book_published_at FROM books
+        WHERE id IN(SELECT DISTINCT(book_id) from feedbacks
+                    WHERE book_id IS NOT NULL)
+    SQL
 
-
+    @books_with_feedbacks = Book.find_by_sql(sql)
   end
 
 

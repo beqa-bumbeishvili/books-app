@@ -1,5 +1,5 @@
 class FeedbacksController < ApplicationController
-  before_action :set_feedback, only: [:show, :update]
+  before_action :set_feedback, only: [:show, :edit, :update]
 
   def index
     @feedbacks = Feedback.all
@@ -13,14 +13,13 @@ class FeedbacksController < ApplicationController
   end
 
   def edit
-    @feedback = Feedback.new
   end
 
   def create
     @feedback = Feedback.new(feedback_params)
     respond_to do |format|
       if @feedback.save
-        format.html { redirect_to @feedback, notice: 'Author was successfully created.' }
+        format.html { redirect_to @feedback, notice: 'Feedback was successfully created.' }
         format.json { render :show, status: :created, location: @feedback }
       else
         format.html { render :new }
@@ -32,7 +31,7 @@ class FeedbacksController < ApplicationController
   def update
     respond_to do |format|
      if @feedback.update(feedback_params)
-      format.html { redirect_to @feedback, notice: 'Author was successfully created.' }
+      format.html { redirect_to @feedback, notice: 'Feedback was successfully updated.' }
       format.json { render :show, status: :created, location: @feedback }
       else
       format.html { render :new }

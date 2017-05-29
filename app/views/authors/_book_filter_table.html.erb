@@ -17,8 +17,8 @@
         <td><%= item.book_number %></td>
         <td><%= item.book_title %></td>
         <td><%= item.book_published_at %></td>
-        <td><%= item.author_name %></td>
-        <td><%= item.author_last_name %></td>
+        <td><%= item.author_name if  item.author_name.present? %></td>
+        <td><%= item.author_last_name if item.author_last_name %></td>
       </tr>
   <% end %>
   </tbody>
