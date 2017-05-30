@@ -1,18 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Number:</strong>
+  <strong>comment:</strong>
   <%= @feedback.comment %>
 </p>
 
 <p>
   <strong>Name:</strong>
-  <%= @feedback.score %>
+  <%= @feedback.user.name %>
 </p>
 
 <p>
   <strong>Last name:</strong>
-  <%= @feedback.feedbacker %>
+  <%= @feedback.user.last_name %>
 </p>
 
 <%= link_to 'Edit', edit_feedback_path(@feedback) %> |

@@ -22,8 +22,8 @@
     </div>
 
     <div class="field">
-      <%= f.label :feedbacker %>
-      <%= f.text_field :feedbacker %>
+      <%= f.label :feedbacker_id %>
+      <%= f.collection_select :feedbacker_id, User.all, :id, :name_and_lastname  %>
     </div>
 
     <div class="field">

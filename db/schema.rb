@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530071018) do
+ActiveRecord::Schema.define(version: 20170530145011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 20170530071018) do
   create_table "feedbacks", force: :cascade do |t|
     t.string  "comment"
     t.integer "score"
-    t.string  "feedbacker"
     t.integer "book_id"
+    t.integer "feedbacker_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,4 +59,5 @@ ActiveRecord::Schema.define(version: 20170530071018) do
   add_foreign_key "addresses", "authors"
   add_foreign_key "books", "authors"
   add_foreign_key "feedbacks", "books"
+  add_foreign_key "feedbacks", "users", column: "feedbacker_id"
 end

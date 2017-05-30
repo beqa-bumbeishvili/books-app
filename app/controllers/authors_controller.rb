@@ -112,6 +112,12 @@ class AuthorsController < ApplicationController
                                              books.published_at AS book_published_at, feedbacks.comment AS feedback_comment,
                                              feedbacks.score AS feedback_score')
 
+    @gia_feedbacker = Book.joins('LEFT JOIN feedbacks ON feedbacks.book_id = books.id').
+                           where('feedbacks.score > 60').
+                           select('books.title AS book_title , books.number AS book_number,
+                                             books.published_at AS book_published_at, feedbacks.comment AS feedback_comment,
+                                             feedbacks.score AS feedback_score')
+
   end
 
 
