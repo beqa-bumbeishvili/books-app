@@ -10,6 +10,10 @@
 
 <%= render 'book_filter_table', title: 'Filter where published date is more than 2012', data: @published_at_filter if @published_at_filter.length > 0 %>
 
+<%= render 'book_feedback_filter_table', title: 'Filter A - Book has at least one feedback', data: @books_with_feedbacks if @books_with_feedbacks.length > 0 %>
+
+<%= render 'good_feedback_books', title: 'Filter B - feedback score is more than 60', data: @books_with_good_feedbacks if @books_with_good_feedbacks.length > 0 %>
+
 
 
 
