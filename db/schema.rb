@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530145011) do
+ActiveRecord::Schema.define(version: 20170531082508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20170530145011) do
     t.string   "title"
     t.datetime "published_at"
     t.integer  "author_id"
+    t.decimal  "price",        default: "10.0"
     t.index ["author_id"], name: "index_books_on_author_id", using: :btree
   end
 

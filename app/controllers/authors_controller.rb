@@ -63,7 +63,7 @@ class AuthorsController < ApplicationController
   end
 
   def custom_columns
-    'books.number AS book_number, books.title AS book_title, books.published_at AS book_published_at,
+    'books.number AS book_number, books.title AS book_title, books.price AS book_price, books.published_at AS book_published_at,
                                             authors.name AS author_name, authors.last_name AS author_last_name'
   end
 
@@ -99,7 +99,7 @@ class AuthorsController < ApplicationController
                                   select(custom_columns)
 
     sql = <<~SQL
-        SELECT title AS book_title , number AS book_number, published_at AS book_published_at FROM books
+        SELECT title AS book_title , number AS book_number, price AS book_price, published_at AS book_published_at FROM books
         WHERE id IN(SELECT DISTINCT(book_id) from feedbacks
                     WHERE book_id IS NOT NULL)
     SQL
@@ -108,13 +108,14 @@ class AuthorsController < ApplicationController
 
     @books_with_good_feedbacks = Book.joins('LEFT JOIN feedbacks ON feedbacks.book_id = books.id').
                                       where('feedbacks.score > 60').
-                                      select('books.title AS book_title , books.number AS book_number,
+                                      select('books.title AS book_title , books.number AS book_number, books.price AS book_price,
                                              books.published_at AS book_published_at, feedbacks.comment AS feedback_comment,
                                              feedbacks.score AS feedback_score')
 
     @gia_feedbacker = Book.joins('LEFT JOIN feedbacks ON feedbacks.book_id = books.id').
-                           where('feedbacks.score > 60').
-                           select('books.title AS book_title , books.number AS book_number,
+                           joins('LEFT JOIN users ON users.id = feedbacks.feedbacker_id').
+                           where('users.name = \'gia\'').
+                           select('books.title AS book_title , books.number AS book_number, books.price AS book_price,
                                              books.published_at AS book_published_at, feedbacks.comment AS feedback_comment,
                                              feedbacks.score AS feedback_score')
 
