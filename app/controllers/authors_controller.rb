@@ -10,7 +10,7 @@ class AuthorsController < ApplicationController
 
   def new
     @author = Author.new
-    2.times { @author.books.build }
+    3.times { @author.books.build }
   end
 
   def edit

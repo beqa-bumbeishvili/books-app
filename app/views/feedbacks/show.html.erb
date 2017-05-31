@@ -6,13 +6,8 @@
 </p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @feedback.user.name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @feedback.user.last_name %>
+  <strong>feedbacker</strong>
+  <%= @feedback.user.name_and_lastname %>
 </p>
 
 <%= link_to 'Edit', edit_feedback_path(@feedback) %> |

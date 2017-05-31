@@ -5,8 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Last name</th>
+      <th>User</th>
       <th>Birth date</th>
       <th>Pin</th>
       <th colspan="3"></th>
@@ -16,8 +15,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
-        <td><%= user.last_name %></td>
+        <td><%= user.name_and_lastname %></td>
         <td><%= user.birth_date %></td>
         <td><%= user.pin %></td>
         <td><%= link_to 'Show', user %></td>

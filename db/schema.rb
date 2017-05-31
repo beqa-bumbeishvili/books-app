@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531082508) do
+ActiveRecord::Schema.define(version: 20170531084837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "address_books", force: :cascade do |t|
+    t.string  "name"
+    t.string  "last_name"
+    t.string  "phone"
+    t.string  "email"
+    t.integer "user_id"
+    t.index ["id", "user_id"], name: "index_address_books_on_id_and_user_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_address_books_on_user_id", using: :btree
+  end
 
   create_table "addresses", force: :cascade do |t|
     t.string   "name"
@@ -57,6 +67,7 @@ ActiveRecord::Schema.define(version: 20170531082508) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "address_books", "users"
   add_foreign_key "addresses", "authors"
   add_foreign_key "books", "authors"
   add_foreign_key "feedbacks", "books"

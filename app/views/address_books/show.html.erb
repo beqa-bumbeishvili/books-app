@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @address_book.name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @address_book.last_name %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @address_book.phone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @address_book.email %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @address_book.user.name_and_lastname %>
+</p>
+
+<%= link_to 'Edit', edit_address_book_path(@address_book) %> |
+<%= link_to 'Back', address_books_path %>
