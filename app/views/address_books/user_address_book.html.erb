@@ -1,0 +1,5 @@
+choose user:
+
+<div class="field">
+  <%= collection_select(:user, :id, Author.all, :id, :name_and_lastname) %>
+</div>

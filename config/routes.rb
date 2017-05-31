@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get 'two_books_author' => 'authors#two_books_author'
   post 'create_two_books_author' => 'authors#create_author_two_books'
   get 'book_filter_view' => 'authors#book_filter_view'
+  get '/user_address_book' => 'address_books#user_address_book'
+  post '/address_books/user_address_book'
 
   root 'authors#index'
 end

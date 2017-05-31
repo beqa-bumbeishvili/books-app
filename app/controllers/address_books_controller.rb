@@ -61,6 +61,15 @@ class AddressBooksController < ApplicationController
     end
   end
 
+  def user_address_book
+    params[:user_id] ||= User.first.id
+
+    @user_address_books = AddressBook.where(user_id: params[:user_id])
+
+  end
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_address_book
