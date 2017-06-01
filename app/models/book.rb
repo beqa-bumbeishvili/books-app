@@ -2,6 +2,8 @@ class Book < ApplicationRecord
   belongs_to :author
   has_many :feedbacks
 
+  self.locking_column = :lock_increment
+
   #before_create :set_book_number
 
   private
