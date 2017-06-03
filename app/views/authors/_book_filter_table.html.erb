@@ -7,7 +7,7 @@
     <th>Book Price</th>
     <th>Book Published At</th>
     <th>Name</th>
-    <th>Lastname</th>
+    <th>Last name</th>
     <th colspan="3"></th>
   </tr>
   </thead>
@@ -19,8 +19,10 @@
         <td><%= item.book_title %></td>
         <td><%= item.book_price %></td>
         <td><%= item.book_published_at %></td>
-        <td><%= item.author_name if  item.author_name.present? %></td>
-        <td><%= item.author_last_name if item.author_last_name %></td>
+        <% if data.class == 'Array' && !!item.author_name %>
+        <td><%= item.author_name %></td>
+        <td><%= item.author_last_name %></td>
+        <% end %>
       </tr>
   <% end %>
   </tbody>

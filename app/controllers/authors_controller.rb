@@ -119,6 +119,19 @@ class AuthorsController < ApplicationController
                                              books.published_at AS book_published_at, feedbacks.comment AS feedback_comment,
                                              feedbacks.score AS feedback_score')
 
+    users_sql = <<~SQL
+      SELECT * FROM users
+            WHERE id IN (
+            SELECT user_id
+            FROM address_books
+            GROUP BY user_id
+            HAVING COUNT(*) > 1
+            )
+    SQL
+
+    @users_with_many_contacts = User.find_by_sql(users_sql)
+
+
   end
 
 
