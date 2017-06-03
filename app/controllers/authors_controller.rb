@@ -141,6 +141,20 @@ class AuthorsController < ApplicationController
 
     @feedbackers = User.find_by_sql(feedbackers_sql)
 
+  user_id_sql = <<~SQL
+      SELECT * FROM users
+      WHERE id IN (
+        SELECT user_id
+        FROM address_books
+        GROUP BY user_id
+        HAVING COUNT(*) >= 1
+        ORDER BY COUNT(*) DESC
+        LIMIT 1
+        )
+    SQL
+
+    @user = User.find_by_sql(user_id_sql)
+
   end
 
 

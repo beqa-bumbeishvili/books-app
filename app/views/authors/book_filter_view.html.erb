@@ -20,4 +20,6 @@
 
 <%= render 'users_form', title: 'all users who gave at least one feedback', data: @feedbackers if @feedbackers.length > 0 %>
 
+<a href="/authors/<%= @user.first.id %>">user show gave at least one feedback and has max number of contacts in adress_book</a>
+
 
