@@ -131,6 +131,15 @@ class AuthorsController < ApplicationController
 
     @users_with_many_contacts = User.find_by_sql(users_sql)
 
+    feedbackers_sql = <<~SQL
+        SELECT * FROM users
+        WHERE id IN (
+        SELECT DISTINCT feedbacker_id
+        FROM feedbacks
+        )
+    SQL
+
+    @feedbackers = User.find_by_sql(feedbackers_sql)
 
   end
 

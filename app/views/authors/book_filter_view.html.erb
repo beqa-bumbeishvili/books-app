@@ -18,4 +18,6 @@
 
 <%= render 'users_form', title: 'all users who has more than 1 contact in address_book', data: @users_with_many_contacts if @users_with_many_contacts.length > 0 %>
 
+<%= render 'users_form', title: 'all users who gave at least one feedback', data: @feedbackers if @feedbackers.length > 0 %>
+
 
