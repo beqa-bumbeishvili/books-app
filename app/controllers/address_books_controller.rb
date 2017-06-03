@@ -41,7 +41,8 @@ class AddressBooksController < ApplicationController
   # PATCH/PUT /address_books/1.json
   def update
     respond_to do |format|
-      if @address_book.update(address_book_params)
+      if @address_book.update!(address_book_params)
+
         format.html { redirect_to @address_book, notice: 'Address book was successfully updated.' }
         format.json { render :show, status: :ok, location: @address_book }
       else
@@ -68,8 +69,6 @@ class AddressBooksController < ApplicationController
 
   end
 
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_address_book
@@ -78,6 +77,6 @@ class AddressBooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def address_book_params
-      params.require(:address_book).permit(:name, :last_name, :phone, :email, :user_id)
+      params.require(:address_book).permit(:name, :last_name, :phone, :email, :user_id, :is_private)
     end
 end

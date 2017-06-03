@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get 'book_filter_view' => 'authors#book_filter_view'
   get '/user_address_book' => 'address_books#user_address_book'
   post '/address_books/user_address_book'
+  get  '/bad_feedbacks' => 'feedbacks#bad_feedback', as: :bad_feedbacks
+
+  get '/feedbacks/:id/change_feedback_status(.:format)' => 'feedbacks#change_feedback_status', as: :change_feedback_status
 
   root 'authors#index'
 end

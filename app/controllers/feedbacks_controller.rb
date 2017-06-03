@@ -2,7 +2,7 @@ class FeedbacksController < ApplicationController
   before_action :set_feedback, only: [:show, :edit, :update]
 
   def index
-    @feedbacks = Feedback.all
+    @feedbacks = Feedback.all.where(whitelist: true)
   end
 
   def show
@@ -38,7 +38,17 @@ class FeedbacksController < ApplicationController
       format.json { render json: @feedback.errors, status: :unprocessable_entity }
      end
     end
-end
+  end
+
+  def bad_feedback
+    @feedbacks = Feedback.all.where(whitelist: false)
+  end
+
+  def change_feedback_status
+    Feedback.where(id: params[:id]).first.update_column( 'whitelist', true)
+
+    redirect_to :bad_feedbacks
+  end
 
   private
 
@@ -47,7 +57,7 @@ end
   end
 
   def feedback_params
-    params.require(:feedback).permit(:comment, :score, :feedbacker, :book_id)
+    params.require(:feedback).permit(:comment, :score, :feedbacker_id, :book_id)
   end
 
 end

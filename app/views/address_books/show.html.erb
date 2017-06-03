@@ -25,5 +25,11 @@
   <%= @address_book.user.name_and_lastname %>
 </p>
 
+<p>
+  <strong>is Private:</strong>
+  <%= @address_book.is_private %>
+</p>
+
+
 <%= link_to 'Edit', edit_address_book_path(@address_book) %> |
 <%= link_to 'Back', address_books_path %>

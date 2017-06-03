@@ -36,6 +36,11 @@
     <%= f.collection_select :user_id, User.all, :id, :name_and_lastname %>
   </div>
 
+    <div class="field">
+      <%= f.label :is_private %> <br />
+      <%= f.check_box :is_private %> <br />
+    </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
