@@ -65,91 +65,31 @@ class AuthorsController < ApplicationController
 
   def book_filter_view
 
-    @all_authors_with_books = BookFilterService.all_authors_with_books
+    service = BookFilterService.new
 
+    @all_authors_with_books = service.all_authors_with_books
 
-    @zip_code_filter = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
-                              joins('LEFT JOIN addresses ON addresses.author_id = authors.id').
-                              where('addresses.zip_code = \'1100\'').
-                              select(custom_columns)
+    @zip_code_filter = service.zip_code_filter
 
+    @author_id_filter = service.author_id_filter
 
-    @author_id_filter = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
-                               where('authors.id > 20').
-                               select(custom_columns)
+    @author_address_filter = service.author_address_filter
 
+    @zip_code_exist = service.zip_code_exists
 
-    @author_address_filter = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
-                                    joins('INNER JOIN addresses ON addresses.author_id = authors.id').
-                                    where('authors.id > 20').
-                                    select(custom_columns)
+    @published_at_filter = service.published_at_filter
 
-    @zip_code_exist = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
-                             joins('LEFT JOIN addresses ON addresses.author_id = authors.id').
-                             where('addresses.zip_code IS NOT NULL').
-                             select(custom_columns)
+    @books_with_feedbacks = service.books_with_feedbacks
 
-    @published_at_filter = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
-                                  where('books.published_at > ?', '2012-01-01').
-                                  select(custom_columns)
+    @books_with_good_feedbacks = service.book_good_feedbacks
 
-    sql = <<~SQL
-        SELECT title AS book_title , number AS book_number, price AS book_price, published_at AS book_published_at FROM books
-        WHERE id IN(SELECT DISTINCT(book_id) from feedbacks
-                    WHERE book_id IS NOT NULL)
-    SQL
+    @gia_feedbacker = service.certain_feedbacker
 
-    @books_with_feedbacks = Book.find_by_sql(sql)
+    @users_with_many_contacts = service.users_with_many_contacts
 
-    @books_with_good_feedbacks = Book.joins('LEFT JOIN feedbacks ON feedbacks.book_id = books.id').
-                                      where('feedbacks.score > 60').
-                                      select('books.title AS book_title , books.number AS book_number, books.price AS book_price,
-                                             books.published_at AS book_published_at, feedbacks.comment AS feedback_comment,
-                                             feedbacks.score AS feedback_score')
+    @feedbackers = service.feedbackers
 
-    @gia_feedbacker = Book.joins('LEFT JOIN feedbacks ON feedbacks.book_id = books.id').
-                           joins('LEFT JOIN users ON users.id = feedbacks.feedbacker_id').
-                           where('users.name = \'gia\'').
-                           select('books.title AS book_title , books.number AS book_number, books.price AS book_price,
-                                             books.published_at AS book_published_at, feedbacks.comment AS feedback_comment,
-                                             feedbacks.score AS feedback_score')
-
-    users_sql = <<~SQL
-      SELECT * FROM users
-            WHERE id IN (
-            SELECT user_id
-            FROM address_books
-            GROUP BY user_id
-            HAVING COUNT(*) > 1
-            )
-    SQL
-
-    @users_with_many_contacts = User.find_by_sql(users_sql)
-
-    feedbackers_sql = <<~SQL
-        SELECT * FROM users
-        WHERE id IN (
-        SELECT DISTINCT feedbacker_id
-        FROM feedbacks
-        )
-    SQL
-
-    @feedbackers = User.find_by_sql(feedbackers_sql)
-
-  user_id_sql = <<~SQL
-      SELECT * FROM users
-      WHERE id IN (
-        SELECT user_id
-        FROM address_books
-        GROUP BY user_id
-        HAVING COUNT(*) >= 1
-        ORDER BY COUNT(*) DESC
-        LIMIT 1
-        )
-    SQL
-
-    @user = User.find_by_sql(user_id_sql)
-
+    @user = service.user
   end
 
   private

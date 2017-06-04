@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20170603153549) do
     t.string   "title"
     t.datetime "published_at"
     t.integer  "author_id"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.decimal  "price",          default: "10.0"
     t.integer  "lock_increment", default: 0
     t.index ["author_id"], name: "index_books_on_author_id", using: :btree
@@ -66,8 +68,6 @@ ActiveRecord::Schema.define(version: 20170603153549) do
     t.string   "last_name"
     t.datetime "birth_date"
     t.string   "pin"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
     t.integer  "lock_version",          default: 0
     t.integer  "private_address_count", default: 0
   end
