@@ -17,7 +17,7 @@
 
 <p>
   <strong>Birth date:</strong>
-  <%= @author.birth_date %>
+  <%= @author.birth_date.to_date %>
 </p>
 
 <%= link_to 'Edit', edit_author_path(@author) %> |

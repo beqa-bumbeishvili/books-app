@@ -16,7 +16,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name_and_lastname %></td>
-        <td><%= user.birth_date %></td>
+        <td><%= user.birth_date.to_date %></td>
         <td><%= user.pin %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>

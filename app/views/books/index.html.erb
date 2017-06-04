@@ -18,7 +18,7 @@
       <tr>
         <td><%= book.number %></td>
         <td><%= book.title %></td>
-        <td><%= book.published_at %></td>
+        <td><%= book.published_at.to_date %></td>
         <td><%= book.author.name_and_lastname %></td>
         <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>

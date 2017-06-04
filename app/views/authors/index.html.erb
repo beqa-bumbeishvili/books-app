@@ -19,7 +19,7 @@
         <td><%= author.number %></td>
         <td><%= author.name %></td>
         <td><%= author.last_name %></td>
-        <td><%= author.birth_date %></td>
+        <td><%= author.birth_date.to_date %></td>
         <td><%= link_to 'Show', author %></td>
         <td><%= link_to 'Edit', edit_author_path(author) %></td>
         <td><%= link_to 'Destroy', author, method: :delete, data: { confirm: 'Are you sure?' } %></td>
