@@ -1,5 +1,5 @@
 class Author < ApplicationRecord
-  has_one :address
+  has_one :address, dependent: :destroy
 
   has_many :books, inverse_of: :author, dependent: :destroy
 

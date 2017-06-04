@@ -1,6 +1,6 @@
 class Book < ApplicationRecord
   belongs_to :author
-  has_many :feedbacks
+  has_many :feedbacks, dependent: :destroy
 
   self.locking_column = :lock_increment
 
