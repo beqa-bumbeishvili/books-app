@@ -75,7 +75,7 @@ class AuthorsController < ApplicationController
 
     @zip_code_filter = Author.joins('LEFT JOIN books ON books.author_id = authors.id').
                               joins('LEFT JOIN addresses ON addresses.author_id = authors.id').
-                              where('addresses.zip_code LIKE \'1100\'').
+                              where('addresses.zip_code = \'1100\'').
                               select(custom_columns)
 
 
@@ -156,7 +156,6 @@ class AuthorsController < ApplicationController
     @user = User.find_by_sql(user_id_sql)
 
   end
-
 
   private
 

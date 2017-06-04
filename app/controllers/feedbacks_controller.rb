@@ -1,5 +1,5 @@
 class FeedbacksController < ApplicationController
-  before_action :set_feedback, only: [:show, :edit, :update]
+  before_action :set_feedback, only: [:show, :edit, :update, :destroy]
 
   def index
     @feedbacks = Feedback.all.where(whitelist: true)
@@ -38,6 +38,11 @@ class FeedbacksController < ApplicationController
       format.json { render json: @feedback.errors, status: :unprocessable_entity }
      end
     end
+  end
+
+  def destroy
+    @feedback.destroy
+    redirect_to feedbacks_path
   end
 
   def bad_feedback
