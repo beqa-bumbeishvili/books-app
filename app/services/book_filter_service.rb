@@ -46,13 +46,9 @@ class BookFilterService
   end
 
   def books_with_feedbacks
-    sql = <<~SQL
-        SELECT title AS book_title , number AS book_number, price AS book_price, published_at AS book_published_at FROM books
-        WHERE id IN(SELECT DISTINCT(book_id) from feedbacks
-                    WHERE book_id IS NOT NULL)
-    SQL
-
-    @books_with_feedbacks = Book.find_by_sql(sql)
+    Book.where('id IN (:array)', array: Feedback.where('book_id IS NOT NULL').distinct.pluck(:book_id)).
+                                 select('title AS book_title , number AS book_number,
+                                               price AS book_price, published_at AS book_published_at')
   end
 
   def book_good_feedbacks
@@ -73,17 +69,9 @@ class BookFilterService
   end
 
   def users_with_many_contacts
-    users_sql = <<~SQL
-      SELECT * FROM users
-            WHERE id IN (
-            SELECT user_id
-            FROM address_books
-            GROUP BY user_id
-            HAVING COUNT(*) > 1
-            )
-    SQL
-
-    User.find_by_sql(users_sql)
+    User.where('id IN (:array)', array: AddressBook.group(:user_id).
+                                              having('count(user_id) > 1').
+                                              pluck(:user_id))
   end
 
   def feedbackers
@@ -91,20 +79,11 @@ class BookFilterService
   end
 
   def user
-    user_id_sql = <<~SQL
-      SELECT * FROM users
-      WHERE id IN (
-        SELECT user_id
-        FROM address_books
-        GROUP BY user_id
-        HAVING COUNT(*) >= 1
-        ORDER BY COUNT(*) DESC
-        LIMIT 1
-        )
-    SQL
-
-    User.find_by_sql(user_id_sql)
+    User.where('id IN (:array)', array: AddressBook.group(:user_id).
+                                        having('count(user_id) >= 1').
+                                        order('count(user_id) desc').
+                                        pluck(:user_id).take(1))
   end
 
-
 end
+
