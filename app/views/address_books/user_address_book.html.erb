@@ -1,5 +1,42 @@
+<br><br>
 choose user:
-
+<form method="post">
 <div class="field">
-  <%= collection_select(:user, :id, Author.all, :id, :name_and_lastname) %>
+  <%= collection_select(:user, :id, User.all, :id, :name_and_lastname, selected: @user_address_books.first.user_id) %>
 </div>
+
+  <input type="submit" value="load" />
+</form>
+
+<br>
+<h1>Address Books for chosen user</h1>
+<br>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Last name</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>User</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <% if @user_address_books.length > 0 %>
+  <tbody>
+  <% @user_address_books.each do |address_book| %>
+      <tr>
+        <td><%= address_book.name %></td>
+        <td><%= address_book.last_name %></td>
+        <td><%= address_book.phone %></td>
+        <td><%= address_book.email %></td>
+        <td><%= address_book.user.name_and_lastname %></td>
+      </tr>
+  <% end %>
+  </tbody>
+  <% end %>
+
+</table>
+

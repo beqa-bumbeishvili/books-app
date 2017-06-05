@@ -63,10 +63,9 @@ class AddressBooksController < ApplicationController
   end
 
   def user_address_book
-    params[:user_id] ||= User.first.id
+    params[:user] ||= User.first
 
-    @user_address_books = AddressBook.where(user_id: params[:user_id])
-
+    @user_address_books = AddressBook.where(user_id: params[:user][:id])
   end
 
   private
