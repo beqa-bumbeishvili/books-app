@@ -87,15 +87,7 @@ class BookFilterService
   end
 
   def feedbackers
-    feedbackers_sql = <<~SQL
-        SELECT * FROM users
-        WHERE id IN (
-        SELECT DISTINCT feedbacker_id
-        FROM feedbacks
-        )
-    SQL
-
-    User.find_by_sql(feedbackers_sql)
+    User.where('id IN (:array)', array: Feedback.distinct.pluck(:feedbacker_id))
   end
 
   def user

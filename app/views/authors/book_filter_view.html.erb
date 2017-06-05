@@ -10,6 +10,7 @@
 <button class="filter" href="#">filter9</button>
 <button class="filter" href="#">filter10</button>
 <button class="filter" href="#">filter11</button>
+<button class="filter" href="#">filter12</button>
 <a href="/users/<%= @user.first.id %>"><button>User with max contacts</button></a>
 
 
@@ -31,9 +32,11 @@
 
 <div id="filter9" style="display: none;"><%= render 'good_feedback_books', title: 'books whose feedbacker is gia', data: @gia_feedbacker if @gia_feedbacker.length > 0 %></div>
 
-<div id="filter10" style="display: none;"><%= render 'users_form', title: 'all users who has more than 1 contact in address_book', data: @users_with_many_contacts if @users_with_many_contacts.length > 0 %> %></div>
+<div id="filter10" style="display: none;"><%= render 'users_form', title: 'all users who has more than 1 contact in address_book', data: @users_with_many_contacts if @users_with_many_contacts.length > 0 %></div>
 
 <div id="filter11" style="display: none;"><%= render 'users_form', title: 'all users who gave at least one feedback', data: @feedbackers if @feedbackers.length > 0 %></div>
+
+<div id="filter12" style="display: none;"><%= render 'users_form', title: 'user with max number of feedbacks', data: @user if @user.length > 0 %></div>
 
 <script>
     links = document.getElementsByClassName('filter');
