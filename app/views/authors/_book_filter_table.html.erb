@@ -19,7 +19,7 @@
         <td><%= item.book_title %></td>
         <td><%= item.book_price %></td>
         <td><%= item.book_published_at %></td>
-        <% if data.class == 'Array' && !!item.author_name %>
+        <% if !!item.author_name %>
         <td><%= item.author_name %></td>
         <td><%= item.author_last_name %></td>
         <% end %>

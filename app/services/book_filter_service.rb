@@ -9,7 +9,7 @@ class BookFilterService
 
   def all_authors_with_books
     Author.joins('LEFT JOIN books on books.author_id = authors.id').
-        select(@custom_columns)
+          select(@custom_columns)
   end
 
   def zip_code_filter
@@ -22,33 +22,35 @@ class BookFilterService
   def author_id_filter
     Author.joins('LEFT JOIN books ON books.author_id = authors.id').
            where('authors.id > 20').
-           select(custom_columns)
+           select(@custom_columns)
   end
 
   def author_address_filter
     Author.joins('LEFT JOIN books ON books.author_id = authors.id').
            joins('INNER JOIN addresses ON addresses.author_id = authors.id').
            where('authors.id > 20').
-           select(custom_columns)
+           select(@custom_columns)
   end
 
   def zip_code_exists
     Author.joins('LEFT JOIN books ON books.author_id = authors.id').
            joins('LEFT JOIN addresses ON addresses.author_id = authors.id').
            where('addresses.zip_code IS NOT NULL').
-           select(custom_columns)
+           select(@custom_columns)
   end
 
   def published_at_filter
     Author.joins('LEFT JOIN books ON books.author_id = authors.id').
            where('books.published_at > ?', '2012-01-01').
-           select(custom_columns)
+           select(@custom_columns)
   end
 
   def books_with_feedbacks
-    Book.where('id IN (:array)', array: Feedback.where('book_id IS NOT NULL').distinct.pluck(:book_id)).
-                                 select('title AS book_title , number AS book_number,
-                                               price AS book_price, published_at AS book_published_at')
+    Book.joins('LEFT JOIN authors ON authors.id = books.author_id').
+         where('books.id IN (:array)', array: Feedback.where('book_id IS NOT NULL').distinct.pluck(:book_id)).
+         select('title AS book_title , books.number AS book_number,
+                price AS book_price, published_at AS book_published_at,
+                authors.name AS author_name, authors.last_name AS author_last_name')
   end
 
   def book_good_feedbacks
