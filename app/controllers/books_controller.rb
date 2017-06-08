@@ -30,7 +30,6 @@ class BooksController < ApplicationController
     end
   end
 
-
   def update
     respond_to do |format|
       if @book.update(book_params)
@@ -42,7 +41,6 @@ class BooksController < ApplicationController
       end
     end
   end
-
 
   def destroy
     @book.destroy

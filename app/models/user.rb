@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   has_many :address_books, dependent: :destroy
 
-
   def name_and_lastname
     "#{self.name} #{self.last_name}"
   end

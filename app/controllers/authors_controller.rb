@@ -62,7 +62,6 @@ class AuthorsController < ApplicationController
     @author.save
   end
 
-
   def book_filter_view
 
     service = BookFilterService.new
@@ -98,7 +97,7 @@ class AuthorsController < ApplicationController
       @author = Author.find(params[:id])
     end
 
-  def author_params
+    def author_params
       params.require(:author).permit(:name, :last_name, :birth_date, :address_id,
                                    books_attributes: [:id, :number, :title, :published_at])
   end
